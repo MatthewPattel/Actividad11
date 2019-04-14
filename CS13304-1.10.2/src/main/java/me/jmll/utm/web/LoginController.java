@@ -59,10 +59,12 @@ public class LoginController {
         	log.info("Already logged in {}", session.getAttribute("username"));
             return this.getHomeRedirect();
         }
-        // Escribe tu çódigo aquí {
-        
-        // }
-        else if(!userDB.containsKey(form.getUsername()) || 
+        if(form.getUsername() == null || form.getPassword() == null) {
+        	
+        	warnings.add("Username o password es null");
+        	model.put("loginWarnings", warnings);
+        	
+        } else if(!userDB.containsKey(form.getUsername()) || 
         		!form.getPassword().equals(userDB.get(form.getUsername()).getPassword())) {
             log.warn("Login failed for user {}", form.getUsername());
             warnings.add("Invalid Username or password.");
@@ -89,9 +91,9 @@ public class LoginController {
     public View logout(HttpSession session, Map<String, Object> model) {
     	User user = (User) session.getAttribute("validUser");
         log.debug("User {} logged out.", user.getUsername());
-        // Escribe tu código Aquí {
-
-        // }
+        
+        session.invalidate();
+        return new RedirectView("/login", true, false);
     }
     
 }

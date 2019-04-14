@@ -13,9 +13,8 @@ import org.springframework.stereotype.Service;
  * 5 (a) Implementa FileService y es marcado como servicio 
  * por org.springframework.stereotype.Service
  * */
-// Escribe tu código aquí {
 
-// }
+@Service
 public class FileServiceImpl implements FileService {
 
 	@Override
@@ -25,9 +24,7 @@ public class FileServiceImpl implements FileService {
 		 * por medio de un *método* la clase java.nio.file.Paths
 		 * y regresa el archivo
 		 * */
-		// Escribe tu código aquí {
-
-		// }
+		return Paths.get(fileName);
 	}
 	
 	public List<Path> walkDir(Path path, List<Path> paths){		

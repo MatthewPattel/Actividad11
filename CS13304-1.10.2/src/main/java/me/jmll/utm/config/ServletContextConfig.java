@@ -78,16 +78,19 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter {
 	 * 2 (a) Configura RequestToViewNameTranslator con
 	 * DefaultRequestToViewNameTranslator
 	 * */
-	// Escribe tu código aquí {
-
-	// }
+	
+	@Bean
+	public RequestToViewNameTranslator viewNameTranslator() {
+		return new DefaultRequestToViewNameTranslator();
+	}
+	
 	/**
 	 * 2 (b) Configura MultipartResolver con 
 	 * StandardServletMultipartResolver
 	 * */
-	// Escribe tu código aquí {
-
-	 // }
+	public MultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
 	
 	/**
 	 * Configura messageConverters

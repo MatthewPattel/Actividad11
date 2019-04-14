@@ -10,6 +10,10 @@ import me.jmll.utm.filter.Authorization;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import javax.servlet.MultipartConfigElement;
 
@@ -49,16 +53,13 @@ public class InitializeApp implements WebApplicationInitializer
          *  maxRequestSize = 40MB
          *  fileSizeThreshold = 512000
          * */
-        // Escribe tu código aquí {
-
-        // }
+        dispatcher.setMultipartConfig(new MultipartConfigElement(null, 20971520, 41943040, 512000));
         
         /**
          * 1 (b) Registra Filters para autenticación me.jmll.utm.filter.Authorization
          * para los url patterns /dashboard, /list, /upload y sus variantes con expresiones ant
          * */
-        // Escribe tu código aquí {
-
-        // }
+        FilterRegistration.Dynamic authorizationFilter = container.addFilter("Authorization", Authorization.class);
+        authorizationFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/dashboard/*", "/list/*", "/upload/*");
     }
 }

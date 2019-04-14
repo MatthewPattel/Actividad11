@@ -54,14 +54,16 @@ public class UploadController {
 		if (!file.isEmpty()) {
             try {
             	Path filePath = Paths.get(path);
-            	// Escribe tu código Aquí { 
-
-            	// }
+            	
+            	if (!Files.exists(filePath)) {
+            		Files.createDirectory(filePath);
+            	}
+            	
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(new File(filePath.toString() + File.separator + name)));
-                //Escribe tu código Aquí {
-
-                // }
+                
+                FileCopyUtils.copy(file.getInputStream(), stream);
+                
                 String message = String.format("File %s successfully uploaded to %s", name, path);
                 warnings.add(message);
                 log.info(message);

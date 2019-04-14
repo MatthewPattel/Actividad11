@@ -35,9 +35,7 @@ public class ListController {
 	@RequestMapping(value = "list/files", method = RequestMethod.GET)
 	@ResponseBody
 	public View getFile(@RequestParam("fileName")  String fileName) throws IOException {
-		// Escribe tu código Aquí {
-
-		// }
+		return new DownloadView(fileName, "application/octet-stream", Files.readAllBytes(fileService.getFile(fileName)));
 	}
 	
 	@RequestMapping(value="list",
@@ -64,9 +62,12 @@ public class ListController {
 		Path dir = Paths.get(path);
 		List<Path> paths = new ArrayList<>();
 		if (Files.exists(dir) && Files.isDirectory(dir)){
-			// Escribe tu código aquí {
-
-			// }
+			
+			fileService.walkDir(dir, paths);
+			model.put("path", path);
+			model.put("paths", paths);
+			model.put("warnings", warnings);
+		
 		} else {
 			errors.add(String.format("Path %s does not exist or is not dir", path));
 			model.put("errors", errors);
